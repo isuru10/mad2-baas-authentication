@@ -1,7 +1,95 @@
 This is the starter code for BaaS Authentication demo.
 
-## Step 1 - Clone and checkout repo
+## Step 1 - Clone repo and checkout branch
 
-Clone this repo and checkout to `starter` branch. The `finished` branch contains the finished version.
+Clone this repo and checkout `starter` branch. The `finished` branch contains the finished version.
 Please go through the steps by yourself before checking out the finished version.
+
+## Step 2 - Setup Firebase console
+
+- Go to `Tools -> Firebase -> Authentication` and select "Authenticate using a custom authentication system"
+- Click "Connect to Firebase"
+- Your browser will open Firebase console
+- Continue until the screen "Your Android Studio project is connected to your Firebase Android app"
+- Come back to Android Studio
+- Click "Add the Firebase Authentication SDK to your app"
+- Click "Accept changes" and let it sync
+- After syncing close the Firebase Assistant panel in Android Studio
+
+## Step 3 - Enable authentication
+
+- Go to [Firebase Console](https://console.firebase.google.com/)
+- Select the project you created on Step 2
+- Select `Build -> Authentication` from side navigation menu
+- Select "Get Started"
+- Select "Email/Password" under "Native Providers"
+- Enable "Email/Password" and hit Save
+
+## Step 4 - Create AuthViewModel
+
+- Create a new Kotlin class named `AuthViewModel`
+- Extend it with `ViewModel` class as follows
+```kotlin
+class AuthViewModel : ViewModel() {
+    
+}
+```
+- Get the Firebase Auth instance as follows
+```kotlin
+    private val auth : FirebaseAuth = FirebaseAuth.getInstance()
+```
+
+- Create `AuthState` sealed class to keep track of the authentication state as follows
+```kotlin
+sealed class AuthState {
+    object Authenticated : AuthState()
+    object Unauthenticated : AuthState()
+    object Loading : AuthState()
+    data class Error(val message : String) : AuthState()
+}
+```
+
+- Refer the AuthState in the ViewModel as follows
+```kotlin
+    private val _authState = MutableLiveData<AuthState>()
+    val authState: LiveData<AuthState> = _authState
+```
+
+- Implement `checkAuthStatus` and call it in `init` as follows
+```kotlin
+    init {
+        checkAuthStatus()
+    }
+
+    fun checkAuthStatus() {
+        if (auth.currentUser == null) {
+            _authState.value = AuthState.Unauthenticated
+        } else {
+            _authState.value = AuthState.Authenticated
+        }
+    }
+```
+
+- Implement the `login` function as follows
+```kotlin
+fun login(email: String, password: String) {
+
+    if (email.isEmpty() || password.isEmpty()) {
+        _authState.value = AuthState.Error("Email or password cannot be empty")
+        return
+    }
+
+    _authState.value = AuthState.Loading
+    auth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                _authState.value = AuthState.Authenticated
+            } else {
+                _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+            }
+        }
+}
+```
+
+- Challenge: Implement the `signup` and `signOut` functions with your knowledge so far
 
