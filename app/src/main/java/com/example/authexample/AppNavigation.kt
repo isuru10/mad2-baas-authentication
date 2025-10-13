@@ -15,7 +15,7 @@ fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
 
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login") {
-            LoginScreen(modifier, navController)
+            LoginScreen(modifier, navController, authViewModel)
         }
         composable("signup") {
             SignupScreen(modifier, navController, authViewModel)
