@@ -24,3 +24,72 @@ Please go through the steps by yourself before checking out the finished version
  - Select "Get Started"
  - Select "Email/Password" under "Native Providers"
  - Enable "Email/Password" and hit Save
+
+## Step 4 - Create AuthViewModel
+
+ - Create a new Kotlin class named `AuthViewModel`
+ - Extend it with `ViewModel` class as follows
+```kotlin
+class AuthViewModel : ViewModel() {
+    
+}
+```
+ - Get the Firebase Auth instance as follows
+```kotlin
+    private val auth : FirebaseAuth = FirebaseAuth.getInstance()
+```
+
+ - Create `AuthState` sealed class to keep track of the authentication state as follows
+```kotlin
+sealed class AuthState {
+    object Authenticated : AuthState()
+    object Unauthenticated : AuthState()
+    object Loading : AuthState()
+    data class Error(val message : String) : AuthState()
+}
+```
+
+ - Refer the AuthState in the ViewModel as follows
+```kotlin
+    private val _authState = MutableLiveData<AuthState>()
+    val authState: LiveData<AuthState> = _authState
+```
+
+ - Implement `checkAuthStatus` and call it in `init` as follows
+```kotlin
+    init {
+        checkAuthStatus()
+    }
+
+    fun checkAuthStatus() {
+        if (auth.currentUser == null) {
+            _authState.value = AuthState.Unauthenticated
+        } else {
+            _authState.value = AuthState.Authenticated
+        }
+    }
+```
+
+ - Implement the `login` function as follows
+```kotlin
+fun login(email: String, password: String) {
+
+    if (email.isEmpty() || password.isEmpty()) {
+        _authState.value = AuthState.Error("Email or password cannot be empty")
+        return
+    }
+
+    _authState.value = AuthState.Loading
+    auth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                _authState.value = AuthState.Authenticated
+            } else {
+                _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+            }
+        }
+}
+```
+
+ - Challenge: Implement the `signup` and `signOut` functions with your knowledge so far
+
