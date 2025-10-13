@@ -23,9 +23,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.authexample.AuthViewModel
 
 @Composable
-fun SignupScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -62,8 +63,7 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(onClick = {
-            // TODO: Change here
-            navController.navigate("home")
+            authViewModel.signup(email, password)
         }) {
             Text(text = "Signup")
         }

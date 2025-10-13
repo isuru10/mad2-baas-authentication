@@ -93,3 +93,49 @@ fun login(email: String, password: String) {
 
  - Challenge: Implement the `signup` and `signOut` functions with your knowledge so far
 
+## Step 5 - Implement and test signup function
+
+ - Update `AppNavigation` to require `authViewModel` as follows
+```kotlin
+fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
+    // Same as before
+}
+```
+ - Update `SignupScreen` to require `authViewModel` as follows
+```kotlin
+fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+    // Same as before
+}
+```
+ - Update `MainActivity` to create `authViewModel` as follows
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        // Retrieve AuthViewModel
+        val authViewModel : AuthViewModel by viewModels()
+        setContent {
+            AuthExampleTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    // Call AppNavigation with authViewModel
+                    AppNavigation(modifier = Modifier.padding(innerPadding), authViewModel)
+                }
+            }
+        }
+    }
+}
+```
+ - Update the Signup button in the `SignupScreen` as follows
+```kotlin
+Button(onClick = {
+    authViewModel.signup(email, password)
+}) {
+    Text(text = "Signup")
+}
+```
+ - Run the application
+ - Navigate to signup screen
+ - Enter an email and a password with at least 6 characters and press signup
+ - Got to the [Firebase Console](https://console.firebase.google.com/)
+ - Navigate to `Build -> Authentication -> Users` and check if a new user is created
