@@ -39,6 +39,12 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
         Spacer(modifier = Modifier.height(40.dp))
 
         Button(onClick = {
+            navController.navigate("taskList")
+        }) {
+            Text(text = "Task List")
+        }
+
+        Button(onClick = {
             authViewModel.signOut()
         }) {
             Text(text = "Logout")

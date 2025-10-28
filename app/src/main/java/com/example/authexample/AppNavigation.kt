@@ -8,9 +8,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.authexample.screens.HomeScreen
 import com.example.authexample.screens.LoginScreen
 import com.example.authexample.screens.SignupScreen
+import com.example.authexample.screens.TaskListScreen
 
 @Composable
-fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
+fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, taskViewModel: TaskViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "login", builder = {
@@ -22,6 +23,9 @@ fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
         }
         composable("home") {
             HomeScreen(modifier, navController, authViewModel)
+        }
+        composable("taskList") {
+            TaskListScreen(modifier, navController, taskViewModel)
         }
     })
 }

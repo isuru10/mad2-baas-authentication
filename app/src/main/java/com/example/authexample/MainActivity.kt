@@ -17,11 +17,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         // Retrieve AuthViewModel
         val authViewModel : AuthViewModel by viewModels()
+        val taskViewModel : TaskViewModel by viewModels()
+
         setContent {
             AuthExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     // Call AppNavigation with authViewModel
-                    AppNavigation(modifier = Modifier.padding(innerPadding), authViewModel)
+                    AppNavigation(modifier = Modifier.padding(innerPadding), authViewModel, taskViewModel)
                 }
             }
         }
