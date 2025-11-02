@@ -1,4 +1,4 @@
-package com.example.authexample.screens
+package com.example.authexample.ui.signup
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -27,11 +27,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.authexample.AuthState
-import com.example.authexample.AuthViewModel
+import com.example.authexample.ui.login.AuthState
+import com.example.authexample.ui.login.AuthViewModel
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -40,10 +40,13 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
     val context = LocalContext.current
 
     LaunchedEffect(authState.value) {
-        when(authState.value){
+        when (authState.value) {
             is AuthState.Authenticated -> navController.navigate("home")
-            is AuthState.Error -> Toast.makeText(context,
-                (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+            is AuthState.Error -> Toast.makeText(
+                context,
+                (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT
+            ).show()
+
             else -> Unit
         }
     }
@@ -53,7 +56,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Login", fontSize = 32.sp)
+        Text(text = "Signup", fontSize = 32.sp)
         Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedTextField(
@@ -80,17 +83,17 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(onClick = {
-            authViewModel.login(email, password)
+            authViewModel.signup(email, password)
         }) {
-            Text(text = "Login")
+            Text(text = "Signup")
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Don't have an account?")
+            Text(text = "Already have an account?")
             TextButton(onClick = {
-                navController.navigate("signup")
+                navController.navigate("login")
             }) {
-                Text("Signup")
+                Text("Login")
             }
         }
     }

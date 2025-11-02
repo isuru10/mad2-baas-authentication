@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.authexample.ui.login.AuthViewModel
+import com.example.authexample.ui.tasks.TaskViewModel
 import com.example.authexample.ui.theme.AuthExampleTheme
+import com.example.authexample.util.AppNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +26,11 @@ class MainActivity : ComponentActivity() {
             AuthExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     // Call AppNavigation with authViewModel
-                    AppNavigation(modifier = Modifier.padding(innerPadding), authViewModel, taskViewModel)
+                    AppNavigation(
+                        modifier = Modifier.padding(innerPadding),
+                        authViewModel,
+                        taskViewModel
+                    )
                 }
             }
         }

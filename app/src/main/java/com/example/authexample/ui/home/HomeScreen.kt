@@ -1,4 +1,4 @@
-package com.example.authexample.screens
+package com.example.authexample.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.authexample.AuthState
-import com.example.authexample.AuthViewModel
+import com.example.authexample.ui.login.AuthState
+import com.example.authexample.ui.login.AuthViewModel
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {

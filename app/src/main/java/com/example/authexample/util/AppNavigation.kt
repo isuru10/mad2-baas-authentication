@@ -1,14 +1,16 @@
-package com.example.authexample
+package com.example.authexample.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.authexample.screens.HomeScreen
-import com.example.authexample.screens.LoginScreen
-import com.example.authexample.screens.SignupScreen
-import com.example.authexample.screens.TaskListScreen
+import com.example.authexample.ui.home.HomeScreen
+import com.example.authexample.ui.login.AuthViewModel
+import com.example.authexample.ui.login.LoginScreen
+import com.example.authexample.ui.signup.SignupScreen
+import com.example.authexample.ui.tasks.TaskListScreen
+import com.example.authexample.ui.tasks.TaskViewModel
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, taskViewModel: TaskViewModel) {
