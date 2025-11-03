@@ -20,7 +20,7 @@ import com.example.authexample.ui.navigation.AppRoutes
 
 @Composable
 fun TaskListScreen(modifier: Modifier = Modifier, navController: NavController, taskViewModel: TaskViewModel) {
-    val tasks by taskViewModel.taskList.collectAsStateWithLifecycle()
+    val tasks by taskViewModel.tasksState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier.fillMaxSize(),

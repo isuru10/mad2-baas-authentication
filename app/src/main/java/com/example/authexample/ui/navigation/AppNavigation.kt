@@ -18,7 +18,7 @@ fun AppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, t
 
     NavHost(
         navController = navController,
-        startDestination = AppRoutes.Login.route,
+        startDestination = AppRoutes.TaskList.route,
         builder = {
             composable(AppRoutes.Login.route) {
                 LoginScreen(modifier, navController, authViewModel)
