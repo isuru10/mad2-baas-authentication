@@ -9,23 +9,25 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.authexample.ui.login.AuthState
-import com.example.authexample.ui.login.AuthViewModel
+import com.example.authexample.data.models.AuthState
+import com.example.authexample.ui.auth.AuthViewModel
+import com.example.authexample.ui.navigation.AppRoutes
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
-    val authState = authViewModel.authState.observeAsState()
+    val authState by authViewModel.authState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(authState.value) {
-        when(authState.value){
-            is AuthState.Unauthenticated -> navController.navigate("login")
+    LaunchedEffect(authState) {
+        when(authState){
+            is AuthState.Unauthenticated -> navController.navigate(AppRoutes.Login.route)
             else -> Unit
         }
     }
@@ -45,7 +47,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
         }
 
         Button(onClick = {
-            authViewModel.signOut()
+            authViewModel.handleLogout()
         }) {
             Text(text = "Logout")
         }

@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.authexample.ui.navigation.AppRoutes
 
 @Composable
 fun TaskListScreen(modifier: Modifier = Modifier, navController: NavController, taskViewModel: TaskViewModel) {
@@ -42,7 +43,7 @@ fun TaskListScreen(modifier: Modifier = Modifier, navController: NavController, 
         }
 
         Button(onClick = {
-            navController.navigate("home")
+            navController.navigate(AppRoutes.Home.route)
         }) {
             Text(text = "Home")
         }

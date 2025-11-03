@@ -9,27 +9,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.authexample.ui.login.AuthViewModel
-import com.example.authexample.ui.tasks.TaskViewModel
+import com.example.authexample.ui.auth.AuthViewModel
 import com.example.authexample.ui.theme.AuthExampleTheme
-import com.example.authexample.util.AppNavigation
+import com.example.authexample.ui.navigation.AppNavigation
+import com.example.authexample.ui.tasks.TaskViewModel
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        // Retrieve AuthViewModel
+
         val authViewModel : AuthViewModel by viewModels()
         val taskViewModel : TaskViewModel by viewModels()
 
         setContent {
             AuthExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // Call AppNavigation with authViewModel
                     AppNavigation(
                         modifier = Modifier.padding(innerPadding),
-                        authViewModel,
-                        taskViewModel
+                        authViewModel = authViewModel,
+                        taskViewModel = taskViewModel
                     )
                 }
             }
