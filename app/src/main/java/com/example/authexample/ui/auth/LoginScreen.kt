@@ -42,12 +42,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
     val currentState = authState
 
     LaunchedEffect(currentState) {
-        when(currentState){
-            is AuthState.Authenticated -> navController.navigate(AppRoutes.Home.route)
-            is AuthState.Error -> Toast.makeText(context,
-                currentState.message, Toast.LENGTH_SHORT).show()
-            else -> Unit
-        }
+        TODO("Use the current state to navigate to appropriate screen")
     }
 
     Column(

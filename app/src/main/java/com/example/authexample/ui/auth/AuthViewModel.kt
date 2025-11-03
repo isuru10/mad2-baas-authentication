@@ -14,29 +14,17 @@ class AuthViewModel : ViewModel() {
     private val authService = FirebaseAuthServiceImpl()
 
     // Exposes the AuthState flow to the UI for observation
-    val authState: StateFlow<AuthState> = authService.authState
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = AuthState.Loading // Initial state
-        )
+    val authState: StateFlow<AuthState> = TODO("Expose the AuthState flow to the UI for observation")
 
     fun handleLogin(email: String, password: String) {
-        viewModelScope.launch {
-            // Service handles the actual sign-in and updates the shared authState flow
-            authService.login(email, password)
-        }
+        TODO("Use the AuthService to handle the login")
     }
 
     fun handleSignup(email: String, password: String) {
-        viewModelScope.launch {
-            authService.signUp(email, password)
-        }
+        TODO("Use the AuthService to handle the signup")
     }
 
     fun handleLogout() {
-        viewModelScope.launch {
-            authService.signOut()
-        }
+        TODO("Use the AuthService to handle the logout")
     }
 }

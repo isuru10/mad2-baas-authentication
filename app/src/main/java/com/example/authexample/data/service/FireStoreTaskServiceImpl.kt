@@ -25,30 +25,7 @@ class FireStoreTaskServiceImpl : TaskService {
     }
 
     override fun getRealtimeTasks(): Flow<List<Task>> = callbackFlow {
-        val tasksCollection = db.collection("tasks")
-
-        val listener = tasksCollection.addSnapshotListener { snapshot, error ->
-            if (error != null) {
-                // Cancel the flow and propagate the error
-                cancel(CancellationException("Firestore listener failed", error))
-                return@addSnapshotListener
-            }
-
-            val tasks = snapshot?.documents?.map { doc ->
-                Task(
-                    id = doc.id,
-                    title = doc.getString("title") ?: "Untitled",
-                    isComplete = doc.getBoolean("isComplete") ?: false
-                )
-            } ?: emptyList()
-
-            trySend(tasks)
-        }
-
-        awaitClose {
-            // Crucial: Remove the listener to prevent memory leaks and unnecessary network use.
-            listener.remove()
-        }
+        TODO("Get realtime tasks with snapshot listener")
     }
 
 

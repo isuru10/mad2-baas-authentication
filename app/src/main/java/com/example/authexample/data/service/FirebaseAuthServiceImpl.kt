@@ -17,45 +17,29 @@ class FirebaseAuthServiceImpl : AuthService {
 
 
     init {
-        // Attach the persistent listener on initialization
-        auth.addAuthStateListener { firebaseAuth ->
-            _authState.value = firebaseAuth.currentUser?.let { user ->
-                // Idiomatic Kotlin check for non-null user
-                AuthState.Authenticated(userId = user.uid, email = user.email)
-            } ?: AuthState.Unauthenticated
-        }
+        TODO("Attach the persistent listener on initialization")
     }
 
     override suspend fun signUp(
         email: String,
         password: String
     ): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            auth.createUserWithEmailAndPassword(email, password).await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        TODO("Create user with email and password")
     }
 
     override suspend fun login(
         email: String,
         password: String
     ): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            auth.signInWithEmailAndPassword(email, password).await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        TODO("Sign in with email and password")
     }
 
 
     override suspend fun signOut() {
-        auth.signOut()
+        TODO("Sign Out")
     }
 
     override fun getUserId(): String {
-        return auth.currentUser?.uid ?: throw IllegalStateException("User not authenticated.")
+        TODO("Get user id")
     }
 }

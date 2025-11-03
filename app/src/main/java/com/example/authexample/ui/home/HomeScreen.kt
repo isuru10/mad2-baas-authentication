@@ -26,10 +26,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
 
     LaunchedEffect(authState) {
-        when(authState){
-            is AuthState.Unauthenticated -> navController.navigate(AppRoutes.Login.route)
-            else -> Unit
-        }
+        TODO("Use the current state to navigate to appropriate screen")
     }
 
     Column(

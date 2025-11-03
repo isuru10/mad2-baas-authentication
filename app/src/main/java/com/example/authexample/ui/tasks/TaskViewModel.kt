@@ -12,11 +12,5 @@ class TaskViewModel : ViewModel() {
 
     private val taskService = FireStoreTaskServiceImpl()
 
-    val tasksState: StateFlow<List<Task>> = taskService
-        .getRealtimeTasks()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
+    val tasksState: StateFlow<List<Task>> = TODO("Expose the tasks state to the UI for observation")
 }
